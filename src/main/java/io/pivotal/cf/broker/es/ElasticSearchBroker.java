@@ -1,18 +1,18 @@
 /**
- Copyright (C) 2016-Present Pivotal Software, Inc. All rights reserved.
-
- This program and the accompanying materials are made available under
- the terms of the under the Apache License, Version 2.0 (the "License”);
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+ * Copyright (C) 2016-Present Pivotal Software, Inc. All rights reserved.
+ * <p>
+ * This program and the accompanying materials are made available under
+ * the terms of the under the Apache License, Version 2.0 (the "License”);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package io.pivotal.cf.broker.es;
@@ -21,8 +21,9 @@ import io.pivotal.ecosystem.servicebroker.model.ServiceBinding;
 import io.pivotal.ecosystem.servicebroker.model.ServiceInstance;
 import io.pivotal.ecosystem.servicebroker.service.DefaultServiceImpl;
 import io.searchbox.client.JestClient;
+import io.searchbox.indices.CreateIndex;
+import io.searchbox.indices.DeleteIndex;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.client.ElasticsearchClient;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ import java.util.Map;
 @Slf4j
 class ElasticSearchBroker extends DefaultServiceImpl {
 
-    public static final String TOPIC_NAME_KEY = "topicName";
+    public static final String INDEX_NAME_KEY = "indexName";
 
     public ElasticSearchBroker(Environment env, JestClient client) {
         super();
@@ -65,14 +66,15 @@ class ElasticSearchBroker extends DefaultServiceImpl {
     public void createInstance(ServiceInstance instance) {
 
         try {
-            Object name = instance.getParameters().get(TOPIC_NAME_KEY);
-            if (name == null) {
-                name = instance.getId();
-                instance.getParameters().put(TOPIC_NAME_KEY, name);
+            Object indexName = instance.getParameters().get(INDEX_NAME_KEY);
+            if (indexName == null) {
+                indexName = instance.getId();
+                instance.getParameters().put(INDEX_NAME_KEY, indexName);
             }
 
-            log.info("creating topic: " + name.toString());
-//            client.createTopic(name.toString());
+            log.info("creating index: " + indexName.toString());
+            client.execute(new CreateIndex.Builder(indexName.toString()).build());
+
         } catch (Throwable throwable) {
             throw new ElasticSearchBrokerException(throwable);
         }
@@ -87,10 +89,8 @@ class ElasticSearchBroker extends DefaultServiceImpl {
     @Override
     public void deleteInstance(ServiceInstance instance) {
         try {
-            log.info("de-provisioning service instance which is a kafka topic: " + instance.getId());
-
-            //call out to kafka to delete the topic
-//            client.deleteTopic(instance.getParameters().get(TOPIC_NAME_KEY).toString());
+            log.info("deleting index: " + instance.getParameter(INDEX_NAME_KEY));
+            client.execute(new DeleteIndex.Builder(instance.getParameter(INDEX_NAME_KEY).toString()).build());
         } catch (Throwable throwable) {
             throw new ElasticSearchBrokerException(throwable);
         }
@@ -104,6 +104,7 @@ class ElasticSearchBroker extends DefaultServiceImpl {
      */
     @Override
     public void updateInstance(ServiceInstance instance) {
+        //no op!
         log.info("updating broker user: " + instance.getId());
     }
 
@@ -122,9 +123,7 @@ class ElasticSearchBroker extends DefaultServiceImpl {
      */
     @Override
     public void createBinding(ServiceInstance instance, ServiceBinding binding) {
-        // use app guid to send bind request
-        //don't need to talk to kafka, just return credentials.
-        log.info("binding app: " + binding.getAppGuid() + " to topic: " + instance.getParameters().get(TOPIC_NAME_KEY));
+        log.info("binding app: " + binding.getAppGuid() + " to topic: " + instance.getParameters().get(INDEX_NAME_KEY));
     }
 
     /**
@@ -135,7 +134,7 @@ class ElasticSearchBroker extends DefaultServiceImpl {
      */
     @Override
     public void deleteBinding(ServiceInstance instance, ServiceBinding binding) {
-        log.info("unbinding app: " + binding.getAppGuid() + " from topic: " + instance.getParameters().get(TOPIC_NAME_KEY));
+        log.info("unbinding app: " + binding.getAppGuid() + " from topic: " + instance.getParameters().get(INDEX_NAME_KEY));
     }
 
     /**
@@ -158,9 +157,9 @@ class ElasticSearchBroker extends DefaultServiceImpl {
             Map<String, Object> m = new HashMap<>();
             //m.put("hostname", env.getProperty("BOOTSTRAP_SERVERS_CONFIG"));
 //            m.put("hostname", client.getBootstrapServers());
-            m.put(TOPIC_NAME_KEY, instance.getParameters().get(TOPIC_NAME_KEY));
+            m.put(INDEX_NAME_KEY, instance.getParameters().get(INDEX_NAME_KEY));
 
-            String uri = "kafka://" + m.get("hostname") + "/" + m.get(TOPIC_NAME_KEY);
+            String uri = "es://" + m.get("hostname") + "/" + m.get(INDEX_NAME_KEY);
             m.put("uri", uri);
             return m;
         } catch (Throwable t) {
