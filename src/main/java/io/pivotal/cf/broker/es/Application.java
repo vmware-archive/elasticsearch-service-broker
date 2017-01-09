@@ -23,6 +23,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"io.pivotal.ecosystem.servicebroker", "io.pivotal.cf.broker.es"})
+
 public class Application {
 
     public static void main(String[] args) {

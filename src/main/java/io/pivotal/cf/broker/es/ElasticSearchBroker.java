@@ -155,11 +155,11 @@ class ElasticSearchBroker extends DefaultServiceImpl {
 
         try {
             Map<String, Object> m = new HashMap<>();
-            //m.put("hostname", env.getProperty("BOOTSTRAP_SERVERS_CONFIG"));
-//            m.put("hostname", client.getBootstrapServers());
+            
             m.put(INDEX_NAME_KEY, instance.getParameters().get(INDEX_NAME_KEY));
-
-            String uri = "es://" + m.get("hostname") + "/" + m.get(INDEX_NAME_KEY);
+            m.put("host", env.getProperty("ELASTIC_HOST"));
+            m.put("port", env.getProperty("ELASTIC_PORT"));
+            String uri = "http://" + m.get("host") + ":" + m.get("port") + "/" + m.get(INDEX_NAME_KEY);
             m.put("uri", uri);
             return m;
         } catch (Throwable t) {

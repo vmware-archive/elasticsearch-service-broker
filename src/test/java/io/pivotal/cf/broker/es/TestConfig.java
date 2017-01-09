@@ -19,15 +19,12 @@ package io.pivotal.cf.broker.es;
 
 import io.pivotal.ecosystem.servicebroker.model.ServiceBinding;
 import io.pivotal.ecosystem.servicebroker.model.ServiceInstance;
+import io.pivotal.ecosystem.servicebroker.service.CatalogService;
+
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.cloud.servicebroker.model.CreateServiceInstanceBindingRequest;
-import org.springframework.cloud.servicebroker.model.CreateServiceInstanceRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 class TestConfig {
@@ -48,6 +45,11 @@ class TestConfig {
 
     @MockBean
     private RedisTemplate<String, ServiceBinding> bindingTemplate;
+    
+    @Bean
+    public CatalogService catalogService() {
+        return new CatalogService();
+    }
 
 //    @Bean
 //    public CreateServiceInstanceRequest createServiceInstanceRequest() {

@@ -43,4 +43,9 @@ public class ElasticClientTest {
         }
         client.execute(new CreateIndex.Builder("foo").build());
     }
+    
+    @Test
+    public void testCatalogConnection() throws Exception {
+    	
+    }
 }
