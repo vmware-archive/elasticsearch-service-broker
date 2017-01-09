@@ -18,7 +18,7 @@ public class BrokerConfig {
 //    @Bean
 //    ElasticsearchClient client() throws UnknownHostException {
 //        TransportClient client = new PreBuiltTransportClient(Settings.EMPTY)
-//                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("search-jarednav-t6bwfsrzhvfufhwugtxacskuue.us-east-1.es.amazonaws.com"), 9300));
+//                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
 //
 //        return client;
 //    }
