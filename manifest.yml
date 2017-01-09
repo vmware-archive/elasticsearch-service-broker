@@ -1,0 +1,15 @@
+# Requires an instance of redis service
+# Requires a valid Elasticsearch hostname or IP address
+---
+applications:
+- name: elastic-broker
+  memory: 1G
+  instances: 1
+  buildpack: java_buildpack_offline
+  path: target/elasticsearch-service-broker-1.4.1.RELEASE.jar
+  services: [ redis-elastic]
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+    API_VERSION: 2.9
+    ELASTIC_HOST: <enter_elasticsearch_hostname_or_ipaddr_here>
+    ELASTIC_PORT: 9300
