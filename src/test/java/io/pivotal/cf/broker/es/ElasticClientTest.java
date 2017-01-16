@@ -21,6 +21,9 @@ import io.searchbox.client.JestClient;
 import io.searchbox.indices.CreateIndex;
 import io.searchbox.indices.DeleteIndex;
 import io.searchbox.indices.IndicesExists;
+
+import java.io.IOException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +39,7 @@ public class ElasticClientTest {
     private JestClient client;
 
     @Test
-    public void testConnection() throws Exception {
+    public void testConnection() throws IOException {
         boolean indexExists = client.execute(new IndicesExists.Builder("foo").build()).isSucceeded();
         if (indexExists) {
             client.execute(new DeleteIndex.Builder("foo").build());

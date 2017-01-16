@@ -26,7 +26,7 @@ public class BrokerConfig {
     @Bean
     JestClient client() {
         JestClientFactory factory = new JestClientFactory();
-        factory.setHttpClientConfig(new HttpClientConfig.Builder(env.getProperty("ELASTIC_HOST"))
+        factory.setHttpClientConfig(new HttpClientConfig.Builder("http://" + env.getProperty("ELASTIC_HOST"))
                 .multiThreaded(true)
                 .build());
         JestClient client = factory.getObject();
