@@ -2,31 +2,31 @@
 Broker allows connecting Cloud Foundry apps to a hosted elasticsearch service. 
 
 ##Prerequisites
-1. The broker requires a redis datastore. To set this up:
-  
-  ```bash
-  cf create-service p-redis shared-vm redis-elastic
-  ```
-2. The broker makes use of spring-security to protect itself against unauthorized meddling. To set its password edit the [src/main/resources/application.properties file](src/main/resources/application.properties) and [src/test/resources/application.properties](src/test/resources/application.properties)
+1. The broker makes use of spring-security to protect itself against unauthorized meddling. To set its password edit the [src/main/resources/application.properties file](src/main/resources/application.properties).
+
+2. Edit the [src/test/resources/application.properties](src/test/resources/application.properties) to provide Elasticsearch hostname and port specific to your environment. 
 
 3. Build the broker from the root directory of the project:
   ```bash
   mvn clean install
   cd elasticsearch-service-broker
   ```
-4. Edit the [manifest.yml](manifest.yml) file to provide Elasticsearch Hostname and Port. You may also need to change the API version to match your CF environment. 
 
-7. Push the broker to cf:
+##Deploy & Register Broker to Cloud Foundry Marketplace
+
+1. Edit the [manifest.yml](manifest.yml) file to provide Elasticsearch Hostname and Port. You may also need to change the API version to match your CF environment. 
+
+2. Push the broker to cf:
   
   ```bash
   cf push
   ```
-8. Register the broker:
+3. Register the broker:
   
   ```bash
-  cf create-service-broker elasticsearch-broker user the_password_from_application_properties https://<uri.of.your.broker.app>
+  cf create-service-broker esbroker user the_password_from_application_properties https://<uri.of.your.broker.app>
   ```
-9. See the broker:
+4. See the broker:
   
   ```bash
   cf service-brokers
@@ -44,7 +44,7 @@ Broker allows connecting Cloud Foundry apps to a hosted elasticsearch service.
      service           plan         access   orgs
      elasticsearch     standard     none
   ...
-  
+
   cf enable-service-access elasticsearch
   Enabling access to all plans of service hello for all orgs as admin...
 
@@ -56,12 +56,12 @@ Broker allows connecting Cloud Foundry apps to a hosted elasticsearch service.
   elasticsearch           standard                              Elasticsearch service for CF Apps
   ...
   ```
-10. Create an service instance of elasticsearch:
+5. Create an service instance of elasticsearch:
   
   ```bash
   cf create-service elasticsearch standard elastic-test-service
   ```
-11. Look at the broker logs:
+6. Look at the broker logs:
   
   ```bash
   cf logs esbroker --recent
