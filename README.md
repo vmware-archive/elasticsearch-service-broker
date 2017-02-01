@@ -2,7 +2,7 @@
 
 Elasticsearch Simple Broker is a minimum viable project to allow Cloud Foundry operators to publish the presence of Elasticsearch offered as a service in their Cloud Foundry marketplace. The broker is compatible with multiple version of Elasticsearch (2+, 5+).  
 
-Broker is compabile with managed offering of Elasticsearch available from a public cloud provider, such as Amazon Web Service, as well as on-premis deployments of Elasticsearch such as elasticsearch clusters deployed by BOSH.  
+Broker is compabile with managed offering of Elasticsearch available from a public cloud provider, such as Amazon Web Service, as well as on-premis deployments of elasticsearch clusters.  
 
 Note: This version of broker allow apps to connect to the elasticsearch service over HTTP protocol only. 
 
