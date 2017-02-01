@@ -6,12 +6,13 @@ The project is made of several modues to assist in the deployment, configuration
 
 ##[elasticsearch-service-broker](elasticsearch-service-broker)
 This is the main broker, written as a Spring Boot Application in Java.
-Directions to deploy the broker are provided in this repository. 
+Step 1: Deploy the broker. Directions are provided in this repository. 
+
+##[elasticsearch-client](elasticsearch-client)
+A simple spring-boot application that can be used to test the successful deployment of elastic-search-broker and validate its functionality.
+Step 2: Test the broker with this client. Directions are provided in this repository
 
 ##[elasticsearch-connector](elasticsearch-connector)
 This is a spring cloud service connector that simplifies how other Spring Boot applications can easily connect to elasticsearch service without parsing connections details from the environment variables. 
-
-##[elasticsearch-client](elasticsearch-client)
-A simple spring-boot application that can be used to test the successful deployment of elastic-search-broker and validate its functionality. 
 
 

@@ -6,10 +6,7 @@ applications:
   memory: 512M
   instances: 1
   buildpack: java_buildpack_offline
-  path: target/elasticsearch-client-0.0.1-SNAPSHOT.jar
-  services: [es]
+  path: target/elasticsearch-client-0.1.jar
+  services: [elastic-test-service]
   env:
     SPRING_PROFILES_ACTIVE: cloud
-
-# Also Put IP Address in the src/test/resources/application.properties
-# Also Put IP Address in the src/test/resources/application.properties
