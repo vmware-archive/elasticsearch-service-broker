@@ -3,3 +3,6 @@ target
 .classpath
 .project
 *.settings*
+.mvn
+mvnw.*
+elasticsearch-client/mvnw
