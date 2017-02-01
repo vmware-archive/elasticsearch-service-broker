@@ -36,7 +36,7 @@ public class ElasticSearchServiceInfoCreator extends CloudFoundryServiceInfoCrea
 
         Map<String, Object> credentials = getCredentials(serviceData);
         String id = getId(serviceData);
-        String host = credentials.get("hostname").toString();
+        String host = credentials.get("host").toString();
         String port = credentials.get("port").toString();
         String uri = credentials.get("uri").toString();
 

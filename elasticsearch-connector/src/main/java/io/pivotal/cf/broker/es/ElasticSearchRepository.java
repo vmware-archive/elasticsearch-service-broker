@@ -19,9 +19,13 @@ package io.pivotal.cf.broker.es;
 
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestClientFactory;
+import io.searchbox.client.JestResult;
 import io.searchbox.client.config.HttpClientConfig;
+import io.searchbox.indices.aliases.GetAliases;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
+
+import java.io.IOException;
 
 @Slf4j
 public class ElasticSearchRepository {
@@ -34,11 +38,21 @@ public class ElasticSearchRepository {
     }
 
     @Bean
-    JestClient client() {
+    public JestClient client() {
         JestClientFactory factory = new JestClientFactory();
         String connection = "http://" + info.getHost() + ":" + info.getPort();
         factory.setHttpClientConfig(new HttpClientConfig.Builder(connection).multiThreaded(true).build());
         return factory.getObject();
+    }
+
+    public String getIndexes() throws IOException {
+        GetAliases aliases = new GetAliases.
+                Builder().
+                build();
+
+        JestResult result = client().execute(aliases);
+        String json   = result.getJsonString();
+        return json;
     }
 
 }
