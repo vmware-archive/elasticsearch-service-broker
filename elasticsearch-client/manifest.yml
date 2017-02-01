@@ -1,5 +1,4 @@
-# Requires an instance of redis service
-# Requires a valid Elasticsearch hostname or IP address
+# Requires an instance of elasticsearch service
 ---
 applications:
 - name: elasticsearch-client
