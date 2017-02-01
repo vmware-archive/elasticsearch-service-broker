@@ -1,6 +1,10 @@
 #Elasticsearch Simple Broker
 
-Elasticsearch Simple Broker is a minimum viable project to allow Cloud Foundry operators to publish the presence of Elasticsearch offered as a service in their Cloud Foundry marketplace. The broker is compatible with multiple version of Elasticsearch (2+, 5+). It can be used to publish access credentials from a managed offering of Elasticsearch available from a public cloud provider, such as Amazon Web Service, as well as  deployments of Elasticsearch in the private-cloud, to include Open-Source Elasticsearch clusters deployed by BOSH. This version of broker allow apps to can connect to the elasticsearch service over HTTP protocol only. 
+Elasticsearch Simple Broker is a minimum viable project to allow Cloud Foundry operators to publish the presence of Elasticsearch offered as a service in their Cloud Foundry marketplace. The broker is compatible with multiple version of Elasticsearch (2+, 5+).  
+
+Broker is compabile with managed offering of Elasticsearch available from a public cloud provider, such as Amazon Web Service, as well as on-premis deployments of Elasticsearch such as elasticsearch clusters deployed by BOSH.  
+
+Note: This version of broker allow apps to connect to the elasticsearch service over HTTP protocol only. 
 
 The project is made of several modues to assist in the deployment, configuration, and testing of this broker. 
 
