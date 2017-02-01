@@ -3,16 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.pivotal.ecosystem</groupId>
 	<artifactId>elasticsearch-client</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.1.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>io.pivotal.ecosystem</groupId>
+		<artifactId>cf-elasticsearch</artifactId>
+		<version>${parent.version}</version>
 	</parent>
 
 	<properties>
@@ -41,9 +38,8 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>io.pivotal.ecosystem</groupId>
 			<artifactId>elasticsearch-connector</artifactId>
-			<version>1.4.1.RELEASE</version>
 		</dependency>
 	</dependencies>
 
