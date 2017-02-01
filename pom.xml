@@ -10,28 +10,15 @@
         <version>1.4.1.RELEASE</version>
     </parent>
 
-    <packaging>pom</packaging>
     <groupId>io.pivotal.ecosystem</groupId>
     <artifactId>cf-elasticsearch</artifactId>
     <version>0.1</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>elasticsearch-service-broker</module>
         <module>elasticsearch-connector</module>
         <module>elasticsearch-client</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-
-            <dependency>
-                <groupId>io.pivotal.ecosystem</groupId>
-                <artifactId>elasticsearch-connector</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-        </dependencies>
-
-    </dependencyManagement>
 
 </project>
