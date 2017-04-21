@@ -1,7 +1,7 @@
-#elastic-search-broker
+# elastic-search-broker
 Broker allows connecting Cloud Foundry apps to a hosted elasticsearch service. 
 
-##Prerequisites
+## Prerequisites
 1. The broker makes use of spring-security to protect itself against unauthorized meddling. To set its password edit the [src/main/resources/application.properties file](src/main/resources/application.properties).
 
 2. Edit the [src/test/resources/application.properties](src/test/resources/application.properties) to provide Elasticsearch hostname and port specific to your environment. 
@@ -12,7 +12,7 @@ Broker allows connecting Cloud Foundry apps to a hosted elasticsearch service.
   cd elasticsearch-service-broker
   ```
 
-##Deploy & Register Broker to Cloud Foundry Marketplace
+## Deploy & Register Broker to Cloud Foundry Marketplace
 
 1. Edit the [manifest.yml](manifest.yml) file to provide Elasticsearch Hostname and Port. You may also need to change the API version to match your CF environment. 
 
