@@ -1,4 +1,4 @@
-#elasticserach-cient 
+# elasticsearch-client 
 A simple elasticsearch client application to test the elasticserach service available in cloud foundry marketplace.
 
 1. Change directory to elasticsearch-client from the root directory. 
