@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.cloud.servicebroker.model.BrokerApiVersion;
 
 @Configuration
 @Slf4j
@@ -40,5 +41,10 @@ public class BrokerConfig {
         log.info("connecting to elastic service at " + connection);
         factory.setHttpClientConfig(new HttpClientConfig.Builder(connection).multiThreaded(true).build());
         return factory.getObject();
+    }
+
+    @Bean
+    public BrokerApiVersion brokerApiVersion() {
+        return new BrokerApiVersion();
     }
 }
