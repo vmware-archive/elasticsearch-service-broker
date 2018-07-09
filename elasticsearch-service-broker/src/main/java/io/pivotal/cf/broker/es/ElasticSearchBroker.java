@@ -159,7 +159,9 @@ class ElasticSearchBroker extends DefaultServiceImpl {
             m.put(INDEX_NAME_KEY, instance.getParameters().get(INDEX_NAME_KEY));
             m.put("host", env.getProperty("ELASTIC_HOST"));
             m.put("port", env.getProperty("ELASTIC_PORT"));
-            String uri = "http://" + m.get("host") + ":" + m.get("port") + "/" + m.get(INDEX_NAME_KEY);
+            m.put("user", env.getProperty("ELASTIC_USER"));
+            m.put("password", env.getProperty("ELASTIC_PASSWORD"));
+            String uri = "http://" + m.get("username") + ":" + m.get("password") + "@" + m.get("host") + ":" + m.get("port") + "/" + m.get(INDEX_NAME_KEY);
             m.put("uri", uri);
             return m;
         } catch (Throwable t) {

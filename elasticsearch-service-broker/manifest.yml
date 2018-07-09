@@ -13,5 +13,8 @@ applications:
     API_VERSION: '2.10'
     ELASTIC_HOST: #IP ADDRESS OR HOSTNAME
     ELASTIC_PORT: 9200
+    #ELASTIC_USER: user
+    #ELASTIC_PASSWORD: password
 
-#NOTE: If you provide a hostname, do NOT include http:// in front of the hostname. 
+#NOTE: If you provide a hostname, do NOT include http:// in front of the hostname.
+#NOTE: Uncomment and replace the user:password env vars for Basic HTTP Auth Feature
