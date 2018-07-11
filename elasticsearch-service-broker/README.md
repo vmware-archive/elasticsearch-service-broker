@@ -74,3 +74,16 @@ Broker allows connecting Cloud Foundry apps to a hosted elasticsearch service.
   ...
   2017-02-01T17:18:00.45-0500 [APP/PROC/WEB/0]OUT 2017-02-01 22:18:00 [http-nio-8080-exec-6] INFO  i.p.e.s.service.InstanceService - creating service instance: caa32964-e75d-4bfb-b78d-28456a40c524 service definition: p-elastic
   ...
+
+## Basic HTTP Auth
+
+For security reasons we need an authentication. Basic HTTP Auth  could be enabled on ES cluster by a plugin or through a Proxy as Nginx or HAProxy.
+
+For enabling the feature on the broker side just add next ENV vars to the CloudFoundry manifest:
+
+```
+    ELASTIC_USER: user
+    ELASTIC_PASSWORD: password
+```
+
+Don't forget to replace the values on your own

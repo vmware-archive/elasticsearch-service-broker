@@ -21,11 +21,15 @@ import io.searchbox.client.JestClient;
 import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.config.HttpClientConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.core.util.Integers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.cloud.servicebroker.model.BrokerApiVersion;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
 
 @Configuration
 @Slf4j
@@ -37,9 +41,32 @@ public class BrokerConfig {
     @Bean
     JestClient client() {
         JestClientFactory factory = new JestClientFactory();
-        String connection = "http://" + env.getProperty("ELASTIC_HOST") + ":" + env.getProperty("ELASTIC_PORT");
+
+        String username = env.getProperty("ELASTIC_USER");
+        String password = env.getProperty("ELASTIC_PASSWORD");
+        String host = env.getProperty("ELASTIC_HOST");
+        int port = Integers.parseInt(env.getProperty("ELASTIC_PORT"));
+        String connection = "http://" + host + ":" + port;
+
         log.info("connecting to elastic service at " + connection);
-        factory.setHttpClientConfig(new HttpClientConfig.Builder(connection).multiThreaded(true).build());
+
+        BasicCredentialsProvider customCredentialsProvider = new BasicCredentialsProvider();
+
+        if (!username.isEmpty() && username != null && !password.isEmpty() && password != null) {
+            customCredentialsProvider.setCredentials(
+                    new AuthScope(host, port),
+                    new UsernamePasswordCredentials(username, password)
+            );
+            factory.setHttpClientConfig(new HttpClientConfig.Builder(connection)
+                    .multiThreaded(true)
+                    .credentialsProvider(customCredentialsProvider)
+                    .build());
+        }
+        else {
+            factory.setHttpClientConfig(new HttpClientConfig.Builder(connection).multiThreaded(true).build());
+        }
+
+
         return factory.getObject();
     }
 

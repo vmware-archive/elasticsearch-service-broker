@@ -18,5 +18,3 @@ A spring-boot application to test the successful deployment of elastic-search-br
 
 ## [elasticsearch-connector](elasticsearch-connector)
 This is a spring cloud service connector that simplifies how other Spring Boot applications can easily connect to elasticsearch service without parsing connections details from the environment variables.
-
-
